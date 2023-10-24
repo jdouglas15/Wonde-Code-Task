@@ -3,6 +3,10 @@
   <div>
     <h1 class="title is-1">Wonde Task</h1>
   </div>
+  <div 
+    class="section"
+    v-if="!showViewClassesModal"
+    >
     <div class="field">
       <label class="label">Hide Staff with no classes:</label>
       <div class="control">
@@ -14,10 +18,6 @@
         </label>
       </div>
     </div>
-  <div 
-    class="section"
-    v-if="!showViewClassesModal"
-    >
     <div class="container">
       <table class="table is-fullwidth">
         <caption>Teacher Data</caption>
@@ -44,16 +44,11 @@
       <nav class="pagination is-centered" role="navigation" aria-label="pagination">
         <a class="pagination-previous" @click="currentPage > 1 ? prevPage : null" :class="{ 'disabled-link': currentPage === 1 }">Previous</a>
         <a class="pagination-next" @click="nextPage">Next</a>
-        <ul class="pagination-list">
-          <li v-for="page in pageCount" :key="page">
-            <a class="pagination-link" @click="gotoPage(page)" :class="{ 'is-current': page === currentPage }">{{ page }}</a>
-          </li>
-        </ul>
       </nav>
     </div>
     <div>
       <button
-        v-if="!showClassList"
+        v-if="!showClassList && devModeOn"
         class="button is-primary"
         @click="showClassList = true"
         :class="{ 'is-success': showClassList }"
@@ -62,15 +57,15 @@
       </button>
   </div>
   </div>
-  <class-list
-    v-if="showClassList"
-    >
-  </class-list>
-  <view-classes
-    v-if="showViewClassesModal"
-    :staffObj="staffObj"
-    >
-  </view-classes>
+    <class-list
+      v-if="showClassList"
+      >
+    </class-list>
+    <view-classes
+      v-if="showViewClassesModal"
+      :staffObj="staffObj"
+      >
+    </view-classes>
 </template>
 
 <script>
@@ -90,8 +85,24 @@ export default {
       pageCount: 0,
       showClassList: false,
       showViewClassesModal: false,
-      hideNoClasses: false
+      hideNoClasses: false,
+      devModeOn: false // Used this to test API calls
     };
+  },
+  computed: {
+    paginatedEmployeeData() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.filteredEmployeeData.slice(start, end);
+    },
+    filteredEmployeeData() {
+      return this.hideNoClasses
+        ? this.employeeData.filter((item) => item.hasClasses === 'Yes')
+        : this.employeeData;
+    },
+  },
+  mounted() {
+    this.fetchData();
   },
   methods: {
     fetchData() {
@@ -111,7 +122,6 @@ export default {
           if (Array.isArray(data.data)) {
             this.employeeData = data.data;
 
-            // Check if the 'Classes' array is empty
             this.employeeData.forEach((item) => {
               item.hasClasses = item.classes.data.length > 0 ? "Yes" : "No";
               });
@@ -138,21 +148,6 @@ export default {
       this.showViewClassesModal = true
       this.staffObj = item;
     }
-  },
-  computed: {
-    paginatedEmployeeData() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      return this.filteredEmployeeData.slice(start, end);
-    },
-    filteredEmployeeData() {
-      return this.hideNoClasses
-        ? this.employeeData.filter((item) => item.hasClasses === 'Yes')
-        : this.employeeData;
-    },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

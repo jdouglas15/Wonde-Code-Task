@@ -84,20 +84,6 @@
           .catch((error) => {
             console.error(error);
           });
-
-          const staffClassIds = this.staffObj.classes.data.map((classItem) => classItem.id);
-          const lessonIds = this.lessonObj.map((lessonItem) => lessonItem.period);
-
-          // Check if any staff class ID matches a lesson ID
-            const matchingIds = staffClassIds.filter((classId) => lessonIds.includes(classId));
-
-            if (matchingIds.length > 0) {
-            // There are matches between staff class IDs and lesson IDs
-            console.log('Matching IDs:', matchingIds);
-            } else {
-            // No matches found
-            console.log('No matching IDs found.');
-}
       },
   }
   };
