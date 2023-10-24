@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Date & Time</th>
+          <th>Class ID</th>
           <th>Description</th>
           <th>Subject</th>
           <th>View Students</th>
