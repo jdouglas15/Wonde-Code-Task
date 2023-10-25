@@ -9,5 +9,7 @@ Slight deviation from the spec but I've came at this more from a school principl
 
 My router.js file wasn't playing ball, it was something to do with my build and I couldn't figure it out. So to avoid insanity I just used components that start on the app.vue file. It's not perfect or ideal but hopefully you get the picture
 
+**Please see Wiki tab to see screenshots and further explanations.**
+
 Thanks,
 Jonny
