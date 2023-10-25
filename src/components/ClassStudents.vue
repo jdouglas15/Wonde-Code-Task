@@ -79,7 +79,7 @@
             if (Array.isArray(data.data)) {
               this.apiData = data.data;
             } else {
-              console.error("API response does not contain an array in the 'data' property.");
+              console.error("API failed");
             }
           })
           .catch((error) => {

@@ -1,3 +1,4 @@
+<!-- TESTING FILE, PLEASE IGNORE -->
 <template>
     <div class="section">
       <div class="container">
@@ -49,11 +50,7 @@
     },
     methods: {
       fetchData() {
-        const url = `https://api.wonde.com/v1.0/schools/A1930499544/subjects/`;
-        // const url = "https://api.wonde.com/v1.0/schools/A1930499544/classes";
-        // const schoolId = "A1930499544";
-// const className = "10x/En2";
-// const url = `https://api.wonde.com/v1.0/schools/${encodeURIComponent(schoolId)}/classes?include=lessons.periods&class_name=${encodeURIComponent(className)}`;
+        const url = "https://api.wonde.com/v1.0/schools/A1930499544/classes";
 
         const headers = {
           Authorization: "b594413a99c7f566718c8d200989933b128eb791",
