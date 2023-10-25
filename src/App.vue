@@ -86,7 +86,7 @@ export default {
       showClassList: false,
       showViewClassesModal: false,
       hideNoClasses: false,
-      devModeOn: true // Used this to test API calls
+      devModeOn: false // Used this to test API calls
     };
   },
   computed: {
